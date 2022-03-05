@@ -21,7 +21,7 @@ const defaultOptions = {
     showVideo: false,
     coloured: false,
     reversed: false,
-    whitespace: 15
+    whitespace: 25
 };
 // Stores the current settings.
 const options = {
