@@ -18,17 +18,17 @@ let whitespaceSliderText;
 let resetButton;
 // Stores the default settings, allowing the user to reset them.
 const defaultOptions = {
-    showVideo: false,
-    coloured: false,
-    reversed: false,
+    showVideo:  false,
+    coloured:   false,
+    reversed:   false,
     whitespace: 25
 };
 // Stores the current settings.
 const options = {
-    get showVideo() { return videoCheckbox ? videoCheckbox.checked() : defaultOptions.showVideo; },
-    get coloured() { return colouredCheckbox ? colouredCheckbox.checked() : defaultOptions.coloured; },
-    get reversed() { return reverseCheckbox ? reverseCheckbox.checked() : defaultOptions.reversed; },
-    get whitespace() { return whitespaceSlider ? whitespaceSlider.value() : defaultOptions.whitespace; }
+    get showVideo () { return videoCheckbox    ? videoCheckbox.checked   () : defaultOptions.showVideo;  },
+    get coloured  () { return colouredCheckbox ? colouredCheckbox.checked() : defaultOptions.coloured;   },
+    get reversed  () { return reverseCheckbox  ? reverseCheckbox.checked () : defaultOptions.reversed;   },
+    get whitespace() { return whitespaceSlider ? whitespaceSlider.value  () : defaultOptions.whitespace; }
 };
 
 // Updates certain values when the options are changed. 
@@ -40,7 +40,7 @@ function init() {
     video = createCapture({
         // The width and height are halved if the coloured option is enabled, in order to reduce the number of span tags and speed up the DOM rendering.
         video: {
-            width: window.screen.width / 10 / (options.coloured + 1),
+            width:  window.screen.width  / 10 / (options.coloured + 1),
             height: window.screen.height / 15 / (options.coloured + 1)
         }, audio: false
     });
@@ -74,12 +74,12 @@ function setup() {
     asciiDiv.style("color", "#ffffff");
 
     // Creates the checkboxes for the settings, and provides the default values.
-    videoCheckbox = createCheckbox("Show Video", defaultOptions.showVideo);
+    videoCheckbox    = createCheckbox("Show Video", defaultOptions.showVideo);
     colouredCheckbox = createCheckbox("Coloured", defaultOptions.coloured);
-    reverseCheckbox = createCheckbox("Reverse Characters", defaultOptions.reversed);
+    reverseCheckbox  = createCheckbox("Reverse Characters", defaultOptions.reversed);
 
     // Creates the whitespace slider, sets the default value, and creates the div to display the label.
-    whitespaceSlider = createSlider(0, 50, defaultOptions.whitespace);
+    whitespaceSlider     = createSlider(0, 50, defaultOptions.whitespace);
     whitespaceSliderText = createDiv();
 
     // Creates a button to reset all settings.
@@ -106,15 +106,16 @@ function setup() {
 
     // Defines the behaviour for when the reset button is pressed.
     resetButton.mousePressed(() => {
-        videoCheckbox.checked(defaultOptions.showVideo);
+        videoCheckbox.checked   (defaultOptions.showVideo);
         colouredCheckbox.checked(defaultOptions.coloured);
-        reverseCheckbox.checked(defaultOptions.reversed);
-        whitespaceSlider.value(defaultOptions.whitespace);
+        reverseCheckbox.checked (defaultOptions.reversed);
+        whitespaceSlider.value  (defaultOptions.whitespace);
         init();
     });
 
     // Calls the init function to set finish teh setup process.
     init();
+    navigator.mediaDevices.enumerateDevices().then((x) => console.log(x.filter((y) => y.kind === "videoinput")));
 }
 
 // Runs every frame.
